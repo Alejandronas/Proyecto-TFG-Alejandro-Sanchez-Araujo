@@ -577,3 +577,8 @@ Todos usan el helper `nav_activo()` para marcar el ítem activo. Estructura `.ba
 **`json_encode` PHP→JS** — Datos pre-cargados en servidor inyectados como constantes JS para evitar llamadas AJAX adicionales.
 
 **PHP arrow functions (7.4+)** — `array_filter` + `fn($c) =>` en vistas de paciente.
+
+---
+
+### Documentación adiccional
+[Documentacion adicional Proyecto.pdf](https://github.com/user-attachments/files/28421154/Documentacion.adicional.Proyecto.pdf)
