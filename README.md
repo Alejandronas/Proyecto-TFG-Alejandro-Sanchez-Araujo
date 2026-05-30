@@ -129,6 +129,10 @@ Base de datos `clinica` implementada en MySQL 8 con `utf8mb4` y diseño normaliz
 | `USUARIO` | Cuentas de acceso con rol y contraseña SHA-256 |
 | `LOG_ACCESO` | Registro de inicios de sesión con IP y timestamp |
 
+### Diagrama de la base de datos
+
+<img width="1941" height="1391" alt="Diagramadefv2" src="https://github.com/user-attachments/assets/1ee41814-cbd8-41b7-b01c-d620bf34a7db" />
+
 ### Seguridad iptables (SGBD)
 
 | Regla | Descripción |
