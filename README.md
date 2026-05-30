@@ -579,6 +579,22 @@ Todos usan el helper `nav_activo()` para marcar el ítem activo. Estructura `.ba
 **PHP arrow functions (7.4+)** — `array_filter` + `fn($c) =>` en vistas de paciente.
 
 ---
+### Landing page
+<img width="1883" height="940" alt="landingpage" src="https://github.com/user-attachments/assets/af73735a-1e4d-4f61-86f5-ef6a45289c5d" />
+
+### Vista Paciente
+<img width="1905" height="942" alt="vistapaciente" src="https://github.com/user-attachments/assets/e2585622-3296-4d6f-9521-8ce27e00a987" />
+
+### Vista Medico
+<img width="1901" height="939" alt="vistaMedico" src="https://github.com/user-attachments/assets/61a2dbd5-75a5-438d-a711-c57de1ed8824" />
+
+### Vista Administrador
+<img width="1888" height="943" alt="vistaAdmin" src="https://github.com/user-attachments/assets/fce8e3a3-57a8-4fe3-b0c6-dcd214e11b7b" />
+
+
+### Vista Recepcionista
+<img width="1904" height="940" alt="vistaRecepcionista" src="https://github.com/user-attachments/assets/5ec1ba23-7c5a-4193-8787-1070176b198c" />
+
 
 ### Documentación adiccional
 [Documentacion adicional Proyecto.pdf](https://github.com/user-attachments/files/28421154/Documentacion.adicional.Proyecto.pdf)
