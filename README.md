@@ -1,9 +1,9 @@
 # 🏥 Clínica General
 ### Sistema de Gestión Integral · Proyecto de Fin de Grado
 
-**Alumno:** Alejandro Sánchez Araujo
-**Centro:** IES Albarregas · 2º ASIR
-**Dominio:** `clinicageneral.local`
+**Alumno:** Alejandro Sánchez Araujo  
+**Centro:** IES Albarregas · 2º ASIR  
+**Dominio:** `clinicageneral.local`  
 **Tecnologías:** Vagrant · VirtualBox · Ubuntu · Apache · PHP · MySQL · Nginx · Bootstrap
 
 ---
@@ -20,23 +20,23 @@ Toda la infraestructura se despliega sobre máquinas virtuales Ubuntu 22.04 sin 
 
 ## 2. Módulos del proyecto
 
-### 2.1 Servicios en red *(septiembre – octubre)*
+### 2.1 Servicios en red
 
 Implementación de los servicios de red necesarios para el funcionamiento de la clínica:
 
-- **DHCP:** asignación automática de direcciones IP a todos los dispositivos de la clínica, con reservas para servidores y equipos críticos.
-- **DNS:** servidor de nombres interno con dominio `clinicageneral.local`, resolución directa e inversa e integración con el servidor web y FTP.
+- **DHCP:** asignación automática de direcciones IP a los equipos de la red LAN1 (`10.0.60.0/23`), donde reside el Windows Server, con reservas para servidores y equipos críticos.
+- **DNS:** servidor de nombres interno con dominio `clinicageneral.local` para la red LAN1, con resolución directa e inversa e integración con el servidor web y FTP.
 - **FTP:** servidor para el intercambio seguro de archivos entre departamentos (imágenes médicas, informes, resultados de laboratorio) con usuarios y permisos por departamento.
 - **HTTP:** servidor web corporativo accesible desde el dominio gestionado por el DNS, con la aplicación de gestión de la clínica.
 
-### 2.2 Administración de sistemas *(noviembre – diciembre)*
+### 2.2 Administración de sistemas
 
 Gestión y automatización de los sistemas operativos de la infraestructura:
 
 - **Linux:** scripts bash para facilitar la administración del servidor, incluyendo gestión de usuarios, configuración de servicios y administración de permisos.
 - **Windows Server:** implementación del dominio `clinicageneral.local` con estructura de unidades organizativas, grupos de seguridad, usuarios y políticas de grupo (GPO).
 
-### 2.3 Base de datos y seguridad *(enero – febrero)*
+### 2.3 Base de datos y seguridad
 
 Diseño e implementación de la base de datos relacional y las políticas de seguridad:
 
@@ -44,7 +44,7 @@ Diseño e implementación de la base de datos relacional y las políticas de seg
 - Implementación en MySQL 8 con integridad referencial completa mediante claves foráneas y charset `utf8mb4`.
 - Seguridad con iptables: política por defecto DROP, reglas específicas por IP para el acceso al puerto 3306, acceso SSH restringido a `10.0.0.0/8` y registro de eventos con prefijo `IPTABLES-DROP:`.
 
-### 2.4 Implantación de aplicaciones web *(marzo – junio)*
+### 2.4 Implantación de aplicaciones web
 
 Despliegue de una aplicación web de tres capas sobre infraestructura virtualizada:
 
@@ -77,7 +77,7 @@ Router NAT / Firewall  (10.0.50.40 · 10.0.60.40)
                     └── SGBD   10.0.20.10  ← MySQL 8
 ```
 
-<!-- PENDIENTE: insertar diagrama de red -->
+<img width="1920" height="1080" alt="Balanceador (11)" src="https://github.com/user-attachments/assets/70f25f6d-2ef6-4afe-a910-03d6e64d149a" />
 
 ### 3.1 Segmentos de red
 
@@ -142,7 +142,7 @@ Base de datos `clinica` implementada en MySQL 8 con `utf8mb4` y diseño normaliz
 
 ## 5. Dominio Windows Server
 
-El dominio `clinicageneral.local` está implementado en Windows Server con Active Directory, DNS y DHCP. La estructura organizativa refleja los departamentos reales de la clínica.
+El dominio `clinicageneral.local` está implementado en Windows Server (`10.0.60.10`) dentro de la red LAN1 (`10.0.60.0/23`), con Active Directory, DNS y DHCP. La estructura organizativa refleja los departamentos reales de la clínica.
 
 ### 5.1 Unidades organizativas
 
@@ -175,8 +175,8 @@ clinicageneral.local
 
 ### 5.3 Servicios de red (Windows Server)
 
-- **DNS:** zona directa e inversa para `clinicageneral.local`. Los servidores Linux apuntan a `10.0.60.10` como DNS primario (configurado en `/etc/resolv.conf` con `chattr +i` en el servidor FTP).
-- **DHCP:** *(pendiente de configuración)* — reservas planificadas para todos los equipos de la clínica.
+- **DNS:** servidor de nombres para la red LAN1 (`10.0.60.0/23`). Gestiona la zona directa e inversa de `clinicageneral.local`. Los servidores Linux apuntan a `10.0.60.10` como DNS primario (el servidor FTP tiene `/etc/resolv.conf` bloqueado con `chattr +i`).
+- **DHCP:** asigna IPs dinámicamente a los equipos de la red LAN1 (`10.0.60.0/23`), con reservas fijas para los servidores críticos de esa red.
 
 ---
 
@@ -221,9 +221,24 @@ Ruta estática hacia la red de Windows Server (`10.0.60.0/23`) configurada vía 
 
 ---
 
+## 6.5 Router / NAT
+
+El router (`10.0.50.40` / `10.0.60.40`) interconecta la LAN2 (balanceador) con la LAN1 (Windows Server y FTP). Sin él, el balanceador no tendría visibilidad sobre Active Directory ni el servidor FTP.
+
+- **IP forwarding** activado: `net.ipv4.ip_forward = 1` en `/etc/sysctl.conf`
+- **Ruta estática en el balanceador** (netplan): destino `10.0.60.0/23` vía `10.0.50.40`
+- **Flujo DNS:** balanceador → router (eth1 LAN2) → router (eth2 LAN1) → Windows Server `10.0.60.10`
+
+| Interfaz | IP | Red | Conecta con |
+|---|---|---|---|
+| eth1 (LAN2) | 10.0.50.40 | 10.0.50.0/23 | Balanceador (10.0.50.10) |
+| eth2 (LAN1) | 10.0.60.40 | 10.0.60.0/23 | Windows Server (10.0.60.10), FTP (10.0.60.20) |
+
+---
+
 ## 7. Herramienta de monitorización
 
-Como complemento a la infraestructura, se ha desarrollado una consola de administración centralizada en Python con interfaz gráfica Tkinter. Permite supervisar el estado del hardware, gestionar el ciclo de vida de las máquinas virtuales y auditar la seguridad de la red.
+Consola de administración centralizada en Python con interfaz gráfica Tkinter. Permite supervisar el estado del hardware, gestionar el ciclo de vida de las máquinas virtuales y auditar la seguridad de la red.
 
 ### 7.1 Arquitectura
 
@@ -233,16 +248,16 @@ Como complemento a la infraestructura, se ha desarrollado una consola de adminis
 
 ### 7.2 Funcionalidades
 
-**Gestión de virtualización (Vagrant)**
+**Gestión de virtualización (Vagrant)**  
 Control total de los nodos desde la interfaz: `up`, `halt`, `provision`, `status`. Acceso SSH rápido y visualización de configuración de red de cada VM.
 
-**Monitorización de recursos**
+**Monitorización de recursos**  
 CPU (carga media, top de procesos), RAM y swap, temperatura del sistema vía `/sys/class/thermal` y `lm-sensors`, almacenamiento de discos virtuales (`.vdi`, `.vmdk`).
 
-**Supervisión de servicios web**
+**Supervisión de servicios web**  
 Estado de `apache2`, `nginx`, `mysql` y `php-fpm`. Puertos abiertos (80, 443, 3306) y estadísticas de tráfico RX/TX por interfaz.
 
-**Seguridad y logs**
+**Seguridad y logs**  
 Análisis de `/var/log/auth.log` y `journalctl` para detectar intentos fallidos de login. Extracción de las 10 IPs con más intentos para facilitar su bloqueo en el firewall.
 
 ### 7.3 Scripts de automatización
@@ -315,13 +330,12 @@ Todos los usuarios FTP tienen la contraseña: `Clinica2025!`
 
 ---
 
-*Borrador — última actualización: mayo 2026*
 
 ---
 
 ## 10. Análisis de `/app` *(práctica marzo – junio)*
 
-> Esta sección corresponde al **Módulo 4 — Implantación de Aplicaciones Web**, desarrollado durante el período de **marzo a junio**.
+> Esta sección corresponde a lo desarrollado durante el período de **marzo a junio**.
 
 La carpeta `app/` contiene la aplicación web de **Clínica General**, un sistema de gestión para una clínica privada desarrollado en PHP puro sin framework, siguiendo el patrón MVC. Permite gestionar citas, pacientes, historiales clínicos y empleados a través de cuatro roles de acceso diferenciados:
 
@@ -425,6 +439,42 @@ app/
 | Calendario | `CalendarioController.php` | API REST JSON para FullCalendar. Devuelve eventos con color por estado. HTTP 403 sin sesión. |
 
 ---
+## Patrón MVC en la aplicación
+
+La aplicación sigue el patrón **Modelo-Vista-Controlador (MVC)** implementado de forma artesanal en PHP 8 sin ningún framework. Cada petición HTTP pasa por tres capas bien diferenciadas:
+
+- **Modelo** — se comunica exclusivamente con la base de datos mediante PDO. Contiene todas las queries SQL y devuelve los datos en arrays PHP. No genera ningún HTML.
+- **Vista** — recibe los datos del controlador y genera el HTML final. No ejecuta queries ni lógica de negocio.
+- **Controlador** — actúa como intermediario. Valida la sesión y el rol, llama al modelo, y pasa el resultado a la vista con `require_once`.
+
+### Flujo de una petición
+
+```
+Navegador → panel.php → Controller → Model → BD MySQL
+                     ↑                         ↓
+                   Vista ←───────── datos ──────┘
+```
+
+`panel.php` actúa como enrutador central: lee `$_SESSION['rol']` y carga el controlador correspondiente. Cada controlador comprueba el rol antes de ejecutar nada y devuelve HTTP 403 si no coincide.
+
+### Ejemplo: el médico accede a sus citas
+
+1. El navegador hace `GET panel.php?seccion=citas`
+2. `panel.php` detecta `rol = medico` y carga `CitaController.php`
+3. `CitaController` valida la sesión, llama a `CitaModel::getCitasMedico($id)`
+4. `CitaModel` ejecuta la query con PDO y devuelve el array de citas
+5. El controlador hace `require_once 'views/medico/citas_medico.php'`
+6. La vista itera el array y genera el HTML con Bootstrap
+
+### Separación por rol
+
+Cada rol tiene su propio conjunto de controladores, modelos y vistas. El acceso entre roles está bloqueado a nivel de controlador:
+
+| Capa | Médico | Paciente | Recepcionista | Administrador |
+|------|--------|----------|---------------|---------------|
+| Controller | `CitaController` · `PacienteController` · `ConfiguracionController` | `PerfilPacienteController` | `RecepcionistaController` | `AdminController` |
+| Model | `CitaModel` · `PacienteModel` · `ConfiguracionModel` | `PacienteModel` | `CitaModel` | `AdminModel` |
+| View | `views/medico/` | `views/paciente/` | `views/recepcionista/` | `views/admin/` |
 
 ### Modelos
 
