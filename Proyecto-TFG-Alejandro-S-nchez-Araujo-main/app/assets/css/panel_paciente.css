@@ -1,0 +1,71 @@
+/* Reutilizando todas las clases de panel_medico.css
+   Este css responsve añade solo lo específico del panel de paciente */
+
+/* Banner del paciente en verde */
+.banner-paciente {
+  background: linear-gradient(135deg, #0a6e5c 0%, #12907a 100%);
+  border-radius: 20px;
+  padding: 32px 36px;
+  color: #fff;
+  margin-bottom: 24px;
+  position: relative;
+  overflow: hidden;
+}
+
+.banner-paciente::before {
+  content: '';
+  position: absolute;
+  top: -40px; right: -40px;
+  width: 220px; height: 220px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.08);
+}
+
+.banner-paciente__subtitulo { opacity: .7; font-size: .78rem; margin-bottom: 4px; }
+.banner-paciente h2         { font-family: 'Playfair Display', serif; font-size: 2rem; margin-bottom: 6px; }
+.banner-paciente p          { opacity: .85; font-size: .9rem; margin-bottom: 18px; max-width: 440px; }
+
+/* Tarjeta de médico asignado */
+.tarjeta-medico {
+  background: var(--fondo-tarjeta);
+  border: 1px solid var(--borde);
+  border-radius: 20px;
+  padding: 24px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.tarjeta-medico__avatar {
+  width: 56px; height: 56px;
+  border-radius: 50%;
+  background: var(--verde);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 1.4rem;
+  flex-shrink: 0;
+}
+
+.tarjeta-medico__nombre {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--gris-texto);
+}
+
+.tarjeta-medico__especialidad {
+  font-size: .8rem;
+  color: var(--gris-suave);
+  margin-top: 2px;
+}
+
+/* Badge modo lectura (historial) */
+.badge-lectura {
+  background: var(--verde-suave);
+  color: var(--verde);
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: .7rem;
+  font-weight: 600;
+}

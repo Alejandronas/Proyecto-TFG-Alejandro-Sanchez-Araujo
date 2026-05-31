@@ -1,0 +1,118 @@
+/* Reutiliza las variables de panel_medico.css */
+
+/* GRID UNA COLUMNA */
+.conf-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* TARJETA */
+.conf-card {
+  background: var(--fondo-tarjeta);
+  border: 1px solid var(--borde);
+  border-radius: 20px;
+  padding: 28px 32px;
+}
+
+.conf-card__titulo {
+  font-size: .95rem;
+  font-weight: 700;
+  color: var(--gris-texto);
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--borde);
+}
+
+.conf-card__titulo i {
+  color: var(--verde);
+  font-size: 1.1rem;
+}
+
+/* CAMPOS */
+.conf-label {
+  display: block;
+  font-size: .78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .7px;
+  color: var(--gris-suave);
+  margin-bottom: 6px;
+}
+
+.conf-input {
+  width: 100%;
+  border: 1px solid var(--borde);
+  border-radius: 10px;
+  padding: 9px 14px;
+  font-size: .875rem;
+  color: var(--gris-texto);
+  background: var(--crema);
+  outline: none;
+  transition: border-color .2s;
+}
+
+.conf-input:focus {
+  border-color: var(--verde);
+  box-shadow: 0 0 0 3px rgba(10,110,92,.1);
+}
+
+.conf-input--readonly {
+  background: var(--verde-suave);
+  color: var(--gris-suave);
+  cursor: not-allowed;
+}
+
+.conf-ayuda {
+  font-size: .75rem;
+  color: var(--gris-suave);
+  margin-top: 4px;
+  display: block;
+}
+
+/* BOTÓN */
+.conf-btn-guardar {
+  background: var(--verde);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 24px;
+  font-size: .875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity .2s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+  justify-content: center;
+}
+
+.conf-btn-guardar:hover { opacity: .88; }
+
+/* ALERTAS */
+.conf-alerta {
+  border-radius: 12px;
+  padding: 12px 18px;
+  font-size: .875rem;
+  font-weight: 500;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.conf-alerta--ok {
+  background: #ddf6f1;
+  color: #0a6e5c;
+  border: 1px solid #b2e8de;
+}
+
+.conf-alerta--error {
+  background: #fdeaea;
+  color: var(--peligro);
+  border: 1px solid #f5c0c0;
+}

@@ -1,0 +1,103 @@
+/* ══════════════════════════════════════════════════════
+   PANEL ADMINISTRADOR — estilos complementarios
+   (hereda panel_medico.css + citas_medico.css)
+══════════════════════════════════════════════════════ */
+
+/* Badge activo / inactivo */
+.badge-activo   { background:#ddf6f1; color:#0a6e5c; padding:3px 10px; border-radius:20px; font-size:.72rem; font-weight:700; }
+.badge-inactivo { background:#fdeaea; color:#d95f5f; padding:3px 10px; border-radius:20px; font-size:.72rem; font-weight:700; }
+
+/* Badges de rol */
+.badge-rol {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: .72rem;
+    font-weight: 700;
+}
+.badge-rol-medico        { background:#ddf6f1; color:#0a6e5c; }
+.badge-rol-administrador { background:#e0e7ff; color:#3730a3; }
+.badge-rol-recepcionista { background:#fdf3e3; color:#c8903a; }
+.badge-rol-enfermera     { background:#fce7f3; color:#9d174d; }
+.badge-rol-laboratorio   { background:#f0fdf4; color:#166534; }
+
+/* Tarjetas de resumen del dashboard */
+.stat-admin {
+    background: #fff;
+    border: 1px solid var(--borde);
+    border-radius: 16px;
+    padding: 22px 24px;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+.stat-admin__icono {
+    width: 50px; height: 50px;
+    border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.4rem;
+    flex-shrink: 0;
+}
+.stat-admin__icono--verde   { background:#ddf6f1; color:#0a6e5c; }
+.stat-admin__icono--azul    { background:#e0e7ff; color:#3730a3; }
+.stat-admin__icono--naranja { background:#fdf3e3; color:#c8903a; }
+.stat-admin__icono--rojo    { background:#fdeaea; color:#d95f5f; }
+.stat-admin__icono--lila    { background:#f5f3ff; color:#7c3aed; }
+.stat-admin__icono--gris    { background:#f3f4f6; color:#374151; }
+
+.stat-admin__numero  { font-size: 1.8rem; font-weight: 800; line-height: 1; }
+.stat-admin__etiqueta{ font-size: .78rem; color: var(--gris-suave); margin-top: 3px; }
+
+/* Barra de progreso para carga de médico */
+.barra-carga {
+    height: 7px;
+    border-radius: 4px;
+    background: #e9ecef;
+    overflow: hidden;
+    margin-top: 6px;
+}
+.barra-carga__relleno {
+    height: 100%;
+    background: var(--acento);
+    border-radius: 4px;
+    transition: width .3s;
+}
+
+/* Tabla de log */
+.tabla-log td { font-size: .82rem; }
+.tabla-log .ip-cell { font-family: monospace; color: var(--gris-suave); }
+
+/* Botones de acción inline */
+.btn-reset-pwd {
+    background: #fdf3e3;
+    color: #c8903a;
+    border: 1px solid #f0d5a0;
+    border-radius: 8px;
+    padding: 4px 10px;
+    font-size: .75rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background .2s;
+}
+.btn-reset-pwd:hover { background: #f9e3b8; }
+
+.btn-toggle-off {
+    background: #fdeaea;
+    color: #d95f5f;
+    border: 1px solid #f5c2c2;
+    border-radius: 8px;
+    padding: 4px 10px;
+    font-size: .75rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+.btn-toggle-on {
+    background: #ddf6f1;
+    color: #0a6e5c;
+    border: 1px solid #b2e8de;
+    border-radius: 8px;
+    padding: 4px 10px;
+    font-size: .75rem;
+    font-weight: 600;
+    cursor: pointer;
+}

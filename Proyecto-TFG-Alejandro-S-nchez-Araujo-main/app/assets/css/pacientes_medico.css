@@ -1,0 +1,326 @@
+/* Reutiliza las variables y el layout de panel_medico.css */
+
+/* CABECERA DE SECCIÓN */
+.pac-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.pac-header h5 {
+  font-size: 1rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+}
+
+.pac-header h5::before {
+  content: '';
+  display: inline-block;
+  width: 4px; height: 18px;
+  background: var(--verde);
+  border-radius: 4px;
+}
+
+/* TABLA (reutiliza tabla-card, tabla-citas de citas_medico.css) */
+.tabla-card {
+  background: var(--fondo-tarjeta);
+  border: 1px solid var(--borde);
+  border-radius: 20px;
+  padding: 24px 28px;
+}
+
+.tabla-citas {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.tabla-citas thead th {
+  font-size: .72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .8px;
+  color: var(--gris-suave);
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--borde);
+  text-align: left;
+}
+
+.tabla-citas tbody td {
+  padding: 14px 16px;
+  font-size: .875rem;
+  color: var(--gris-texto);
+  border-bottom: 1px solid var(--borde);
+  vertical-align: middle;
+}
+
+.tabla-citas tbody tr:last-child td { border-bottom: none; }
+.tabla-citas tbody tr:hover { background: var(--verde-suave); }
+
+/* AVATAR */
+.paciente-cell {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.mini-avatar {
+  width: 34px; height: 34px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: .75rem;
+  font-weight: 700;
+  color: #fff;
+  flex-shrink: 0;
+}
+
+/* ACCIONES */
+.acciones-cell {
+  display: flex;
+  gap: 6px;
+}
+
+.btn-accion {
+  width: 32px; height: 32px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: .85rem;
+  transition: opacity .2s;
+}
+
+.btn-historial { background: #e0f0fd; color: #2176ae; display: inline-flex; margin: 0 auto; }
+.btn-eliminar  { background: #fdeaea; color: var(--peligro); }
+.btn-accion:hover { opacity: .75; }
+
+/* BOTÓN AÑADIR */
+.btn-nueva-cita {
+  background: var(--verde);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 9px 20px;
+  font-size: .875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity .2s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.btn-nueva-cita:hover { opacity: .88; }
+
+/* SIN RESULTADOS */
+.sin-resultados {
+  text-align: center;
+  padding: 48px 0;
+  color: var(--gris-suave);
+  font-size: .9rem;
+}
+
+.sin-resultados i { font-size: 2.5rem; display: block; margin-bottom: 12px; color: var(--borde); }
+
+/* MODAL COMPARTIDO */
+.cita-modal {
+  border: none;
+  border-radius: 18px;
+  overflow: hidden;
+}
+
+.cita-modal__header {
+  background: var(--verde);
+  color: #fff;
+  border-bottom: none;
+  padding: 18px 24px;
+}
+
+.cita-modal__header .btn-close { filter: brightness(0) invert(1); }
+
+.cita-modal__body {
+  padding: 24px;
+  background: var(--fondo-tarjeta);
+}
+
+.cita-modal__label {
+  font-size: .78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .7px;
+  color: var(--gris-suave);
+  margin-bottom: 5px;
+}
+
+.cita-modal__input {
+  border: 1px solid var(--borde);
+  border-radius: 10px;
+  background: var(--crema);
+  color: var(--gris-texto);
+  font-size: .875rem;
+}
+
+.cita-modal__input:focus {
+  border-color: var(--verde);
+  box-shadow: 0 0 0 3px rgba(10,110,92,.12);
+}
+
+.cita-modal__footer {
+  background: var(--fondo-tarjeta);
+  border-top: 1px solid var(--borde);
+  padding: 14px 24px;
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+}
+
+.btn-guardar {
+  background: var(--verde);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 9px 22px;
+  font-size: .875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity .2s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.btn-guardar:hover { opacity: .88; }
+
+.btn-cancelar {
+  background: transparent;
+  color: var(--gris-suave);
+  border: 1px solid var(--borde);
+  border-radius: 10px;
+  padding: 9px 18px;
+  font-size: .875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: border-color .2s, color .2s;
+}
+
+.btn-cancelar:hover { border-color: var(--verde); color: var(--verde); }
+
+/* HISTORIAL CLÍNICO */
+.historial-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.historial-entrada {
+  border: 1px solid var(--borde);
+  border-radius: 12px;
+  padding: 14px 18px;
+  background: var(--crema);
+}
+
+.historial-entrada__fecha {
+  font-size: .72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .7px;
+  color: var(--gris-suave);
+  margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.historial-entrada__tipo {
+  font-size: .68rem;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 20px;
+  text-transform: capitalize;
+  letter-spacing: 0;
+  background: var(--verde-suave);
+  color: var(--verde);
+}
+
+.historial-entrada__diagnostico {
+  font-size: .95rem;
+  font-weight: 700;
+  color: var(--gris-texto);
+  margin-bottom: 6px;
+}
+
+.historial-entrada__campo {
+  font-size: .82rem;
+  color: var(--gris-texto);
+  margin-bottom: 3px;
+}
+
+.historial-entrada__medico {
+  font-size: .75rem;
+  color: var(--verde);
+  font-weight: 600;
+  margin-top: 8px;
+}
+
+/* PESTAÑAS DEL MODAL */
+.nav-tabs-modal {
+  border-bottom: 2px solid var(--borde);
+}
+
+.nav-tabs-modal .nav-link {
+  font-size: .83rem;
+  font-weight: 600;
+  color: var(--gris-suave);
+  border: none;
+  border-bottom: 2px solid transparent;
+  border-radius: 0;
+  padding: 8px 16px;
+  margin-bottom: -2px;
+  background: transparent;
+  transition: color .2s, border-color .2s;
+}
+
+.nav-tabs-modal .nav-link:hover {
+  color: var(--verde);
+  border-bottom-color: var(--verde);
+}
+
+.nav-tabs-modal .nav-link.active {
+  color: var(--verde);
+  border-bottom-color: var(--verde);
+  background: transparent;
+}
+
+.historial-nueva {
+  border-top: 2px dashed var(--borde);
+  padding-top: 20px;
+}
+
+.historial-nueva__titulo {
+  font-size: .85rem;
+  font-weight: 700;
+  color: var(--verde);
+  margin-bottom: 14px;
+}
+
+/* RESPONSIVE */
+.tabla-card { overflow-x: auto; }
+
+@media (max-width: 600px) {
+  .tabla-citas thead th:nth-child(2),
+  .tabla-citas thead th:nth-child(3),
+  .tabla-citas tbody td:nth-child(2),
+  .tabla-citas tbody td:nth-child(3) { display: none; }
+
+  .tabla-citas thead th,
+  .tabla-citas tbody td { padding: 10px 10px; }
+}
