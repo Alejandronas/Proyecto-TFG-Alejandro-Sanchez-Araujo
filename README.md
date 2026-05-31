@@ -1,4 +1,4 @@
-# 🏥 Clínica General
+#  Clínica General
 ### Sistema de Gestión Integral · Proyecto de Fin de Grado
 
 **Alumno:** Alejandro Sánchez Araujo  
